@@ -11,37 +11,31 @@ jobs:
         node-version: [16.x]
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v1
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    # TODO: not sure if this actually does anything useful
-    - name: Cache ~/.npm
-      uses: actions/cache@v1
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-npm-
+      # TODO: not sure if this actually does anything useful
+      - name: Cache ~/.npm
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
 
-    - name: Install esy
-      run: npm install -g esy
+      - name: Install esy
+        run: npm install -g esy
 
-    - name: npm install
-      run: npm install
+      - name: npm install
+        run: npm install
 
-    - name: Initial esy build
-      run: esy
+      - name: Initial esy build
+        run: esy
 
-    - name: npm run cleancoverage
-      run: npm run cleancoverage
-
-    - name: Coveralls
-      run: npx bisect-ppx-report send-to Coveralls
-      env:
-        COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PULL_REQUEST_NUMBER: ${{ github.event.number }}
+      - name: npm run cleancoverage
+        run: npm run cleancoverage

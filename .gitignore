@@ -22,10 +22,6 @@ _esy
 # TODO: remove the tests that create these files
 **/testUtils/**/*.txt
 
-# bisect ppx
-bisect*.coverage
-_coverage
-
 # generated docs
 /docs/api
 /docs/odoc.css
